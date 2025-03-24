@@ -1,1 +1,26 @@
+# Dependency setted on a fixed version
 requests==2.26.0
+matplotlib==3.6.2
+    # via
+    #   -r requirements.in
+    #   seaborn
+about-time==4.2.1 \
+    --hash=sha256:6a538862d33ce67d997429d14998310e1dbfda6cb7d9bbfbf799c4709847fece \
+    --hash=sha256:8bbf4c75fe13cbd3d72f49a03b02c5c7dca32169b6d49117c257e7eb3eaee341
+    # via alive-progress
+
+# Dependency setted on a mayor or equal version
+ipdb>=0.6.0
+pandas>=2.2.0 #latest sktime makes tests fail if pandas 2.1
+
+# Dependency setted on a minor or equal version
+pillow<=9.0.0
+
+# Dependency setted between two versions
+numpy>=1.21, <1.27
+joblib>=1.2.0,<1.4  # joblib<1.2.0 is vulnerable to Arbitrary Code Execution (https://github.com/advisories/GHSA-6hrg-qmvc-2xh8)  # joblib 1.4.0 breaks PyCaret
+
+# Dependency without condition on version
+xxhash
+wurlitzer; platform_system != 'Windows'
+setuptools; python_version>='3.12'
