@@ -11,9 +11,9 @@ type VersionConstraint struct {
 }
 
 type Dependency struct {
-	Name          string              `json:"name"`           // Name of the dependency
-	Constraints   []VersionConstraint `json:"constraints"`    // Multiple version constraints
-	IsUnspecified bool                `json:"is_unspecified"` // Flag indicating if the version is unspecified
+	Name          string               `json:"name"`           // Name of the dependency
+	Constraints   *[]VersionConstraint `json:"constraints"`    // Multiple version constraints
+	IsUnspecified bool                 `json:"is_unspecified"` // Flag indicating if the version is unspecified
 }
 
 func NewDependency(name, constraints string) (Dependency, error) {
@@ -56,7 +56,11 @@ func NewDependency(name, constraints string) (Dependency, error) {
 			return Dependency{}, fmt.Errorf("invalid constraint format: %s", constraint)
 		}
 
-		dep.Constraints = append(dep.Constraints, VersionConstraint{
+		if dep.Constraints == nil {
+			dep.Constraints = &[]VersionConstraint{}
+		}
+
+		*dep.Constraints = append(*dep.Constraints, VersionConstraint{
 			Operator: operator,
 			Version:  version,
 		})
